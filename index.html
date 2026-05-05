@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sullman Haq · IQReq</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background: #060f1a;
+    font-family: 'Inter', sans-serif;
+    padding: 40px 20px;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 0%, rgba(30,140,210,0.1), transparent 70%),
+      radial-gradient(ellipse 50% 40% at 90% 100%, rgba(20,100,180,0.07), transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Page indicator */
+  .page-label {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: rgba(42,159,214,0.5);
+    text-transform: uppercase;
+    text-align: center;
+    animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Card base */
+  .card {
+    position: relative;
+    width: 340px;
+    background: #0b1929;
+    overflow: hidden;
+    box-shadow:
+      0 40px 80px rgba(0,0,0,0.6),
+      0 0 0 1px rgba(42,159,214,0.2);
+  }
+
+  .card-1 { animation: fadeUp 0.7s 0.1s cubic-bezier(0.16,1,0.3,1) both; }
+  .card-2 { animation: fadeUp 0.7s 0.2s cubic-bezier(0.16,1,0.3,1) both; }
+
+  /* Animated bars */
+  .top-bar, .bottom-bar {
+    height: 4px;
+    background: linear-gradient(90deg, #1a6fa0, #2a9fd6, #56c8f5, #2a9fd6, #1a6fa0);
+    background-size: 300% 100%;
+    animation: barShimmer 4s linear infinite;
+  }
+  .bottom-bar { animation-direction: reverse; }
+
+  @keyframes barShimmer {
+    0%   { background-position: 0% 0; }
+    100% { background-position: 300% 0; }
+  }
+
+  .card-body {
+    padding: 40px 36px 36px;
+  }
+
+  /* ── PAGE 1 ── */
+  .logo-row {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+
+  .logo-iq {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 48px;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+
+  .logo-req {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 400;
+    font-size: 48px;
+    color: #2a9fd6;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  .tagline {
+    font-size: 10px;
+    color: #2a9fd6;
+    letter-spacing: 0.08em;
+    margin-bottom: 50px;
+    opacity: 0.85;
+    line-height: 1.5;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, rgba(42,159,214,0.5), rgba(42,159,214,0.05));
+    margin-bottom: 30px;
+  }
+
+  .name-block {
+    margin-bottom: 50px;
+  }
+
+  .name-block h1 {
+    font-size: 32px;
+    font-weight: 600;
+    color: #e8f4fb;
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .name-block .title {
+    font-size: 14px;
+    font-weight: 400;
+    color: #2a9fd6;
+    letter-spacing: 0.06em;
+  }
+
+  /* Decorative element page 1 */
+  .deco-circle {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 1px solid rgba(42,159,214,0.08);
+    right: -60px;
+    top: 40px;
+  }
+  .deco-circle-2 {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 1px solid rgba(42,159,214,0.06);
+    right: -20px;
+    top: 80px;
+  }
+
+  /* ── PAGE 2 ── */
+  .contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 36px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .contact-item:hover { opacity: 0.7; }
+
+  .contact-badge {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(42,159,214,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #2a9fd6;
+    letter-spacing: 0.05em;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .contact-label {
+    font-size: 9px;
+    color: rgba(42,159,214,0.5);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .contact-value {
+    font-size: 13px;
+    color: #c8dce8;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  .intl-code { color: #2a9fd6; font-weight: 500; }
+
+  /* QR section */
+  .qr-section {
+    border-top: 1px solid rgba(42,159,214,0.15);
+    padding-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .qr-box {
+    width: 64px; height: 64px;
+    border: 1px solid rgba(42,159,214,0.3);
+    padding: 6px;
+    flex-shrink: 0;
+  }
+
+  .qr-inner {
+    width: 100%; height: 100%;
+    display: grid;
+    grid-template-columns: repeat(7,1fr);
+    grid-template-rows: repeat(7,1fr);
+    gap: 1.5px;
+  }
+
+  .qr-inner span { background: #2a9fd6; border-radius: 0.5px; }
+  .qr-inner span.off { background: transparent; }
+
+  .qr-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .qr-url {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: #2a9fd6;
+    letter-spacing: 0.05em;
+  }
+
+  .qr-hint {
+    font-size: 9px;
+    color: rgba(42,159,214,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* Save button */
+  .save-btn {
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    border: 1px solid rgba(42,159,214,0.4);
+    color: #2a9fd6;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 24px;
+  }
+  .save-btn:hover {
+    background: rgba(42,159,214,0.08);
+    border-color: #2a9fd6;
+    color: #56c8f5;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 — FRONT -->
+<div class="page-label">Page 1 · Front</div>
+<div class="card card-1">
+  <div class="top-bar"></div>
+  <div class="card-body">
+    <div class="deco-circle"></div>
+    <div class="deco-circle-2"></div>
+
+    <div class="logo-row">
+      <span class="logo-iq">IQ</span><span class="logo-req">REQ</span>
+    </div>
+    <div class="tagline">Automated Security &amp; Compliance Assurance</div>
+
+    <div class="divider"></div>
+
+    <div class="name-block">
+      <h1>Sullman Haq</h1>
+      <div class="title">Founder &amp; CTO</div>
+    </div>
+
+    <div class="tagline" style="margin-bottom:0; opacity:0.3; font-size:9px;">card.IQReq.com</div>
+  </div>
+  <div class="bottom-bar"></div>
+</div>
+
+<!-- PAGE 2 — BACK -->
+<div class="page-label">Page 2 · Back</div>
+<div class="card card-2">
+  <div class="top-bar"></div>
+  <div class="card-body">
+
+    <div class="contacts">
+      <a class="contact-item" href="mailto:Sullman@IQReq.com">
+        <div class="contact-badge">E</div>
+        <div class="contact-info">
+          <span class="contact-label">Email</span>
+          <span class="contact-value">Sullman@IQReq.com</span>
+        </div>
+      </a>
+
+      <a class="contact-item" href="tel:+447952805587">
+        <div class="contact-badge">M</div>
+        <div class="contact-info">
+          <span class="contact-label">Mobile · UK</span>
+          <span class="contact-value"><span class="intl-code">+44</span> 7952 805 587</span>
+        </div>
+      </a>
+
+      <a class="contact-item" href="https://www.IQReq.ai" target="_blank">
+        <div class="contact-badge">W</div>
+        <div class="contact-info">
+          <span class="contact-label">Website</span>
+          <span class="contact-value">www.IQReq.ai</span>
+        </div>
+      </a>
+    </div>
+
+    <button class="save-btn" onclick="saveContact()">Save Contact</button>
+
+    <div class="qr-section">
+      <div class="qr-box">
+        <div class="qr-inner">
+          <span></span><span></span><span></span><span class="off"></span><span></span><span></span><span></span>
+          <span></span><span class="off"></span><span></span><span class="off"></span><span></span><span class="off"></span><span></span>
+          <span></span><span></span><span class="off"></span><span class="off"></span><span class="off"></span><span></span><span></span>
+          <span class="off"></span><span class="off"></span><span></span><span></span><span></span><span class="off"></span><span class="off"></span>
+          <span></span><span></span><span class="off"></span><span class="off"></span><span class="off"></span><span></span><span></span>
+          <span></span><span class="off"></span><span></span><span class="off"></span><span></span><span class="off"></span><span></span>
+          <span></span><span></span><span></span><span class="off"></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="qr-info">
+        <div class="qr-url">card.IQReq.com</div>
+        <div class="qr-hint">Scan to view this card</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="bottom-bar"></div>
+</div>
+
+<script>
+function saveContact() {
+  const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Sullman Haq
+N:Haq;Sullman;;;
+TITLE:Founder & CTO
+ORG:IQReq
+EMAIL;TYPE=WORK:Sullman@IQReq.com
+TEL;TYPE=CELL:+447952805587
+URL:https://www.IQReq.ai
+END:VCARD`;
+
+  const blob = new Blob([vcard], { type: 'text/vcard' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'sullman-haq.vcf';
+  a.click();
+  URL.revokeObjectURL(url);
+
+  const btn = document.querySelector('.save-btn');
+  btn.textContent = '✓ Contact Saved!';
+  setTimeout(() => btn.textContent = 'Save Contact', 3000);
+}
+</script>
+
+</body>
+</html>
